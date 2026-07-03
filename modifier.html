@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier la Commande - DECO RN ADMIN</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forms.css">
+</head>
+<body>
+    <div id="app">
+        <div class="form-container">
+            <form id="edit-commande-form" class="glass-form">
+                <!-- Section Cliente -->
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-user-pen"></i> Modifier les Informations de la Cliente
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="client-nom">Nom complet de la cliente *</label>
+                        <input type="text" id="client-nom" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="client-tel">Téléphone mobile *</label>
+                        <input type="tel" id="client-tel" class="form-control" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label" for="client-adresse">Adresse de livraison</label>
+                        <input type="text" id="client-adresse" class="form-control">
+                    </div>
+                </div>
+
+                <!-- Section Produit & Dates -->
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-boxes-packing"></i> Détails du Matériel & Dates
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="produit-nom">Produit réservé (Non modifiable pour intégrité)</label>
+                        <input type="text" id="produit-nom" class="form-control" readonly style="background: rgba(255,255,255,0.2); cursor: not-allowed; font-weight: 600;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="produit-categorie">Catégorie</label>
+                        <input type="text" id="produit-categorie" class="form-control" readonly style="background: rgba(255,255,255,0.2); cursor: not-allowed;">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="date-sortie">Date de Sortie (Retrait) *</label>
+                        <input type="date" id="date-sortie" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="date-retour">Date de Retour (Restitution) *</label>
+                        <input type="date" id="date-retour" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Section Conditions Financières -->
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-sack-dollar"></i> Conditions Financières & Règlement
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="produit-prix">Prix de la location *</label>
+                        <div class="input-addon-wrapper">
+                            <input type="number" id="produit-prix" class="form-control" required>
+                            <span class="input-addon">DA</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="produit-caution">Caution déposée *</label>
+                        <div class="input-addon-wrapper">
+                            <input type="number" id="produit-caution" class="form-control" required>
+                            <span class="input-addon">DA</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="montant-paye">Montant déjà payé (Acompte / Solde) *</label>
+                        <div class="input-addon-wrapper">
+                            <input type="number" id="montant-paye" class="form-control" required>
+                            <span class="input-addon">DA</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reste-payer">Reste à payer (Auto)</label>
+                        <div class="input-addon-wrapper">
+                            <input type="number" id="reste-payer" class="form-control" readonly style="font-weight: 700; color: var(--primary-rose-dark);">
+                            <span class="input-addon">DA</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="mode-paiement">Mode de règlement *</label>
+                        <select id="mode-paiement" class="form-control" required>
+                            <option value="Espèces">Espèces</option>
+                            <option value="CCP">CCP (Virement)</option>
+                            <option value="BaridiMob">BaridiMob</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="commande-statut">Statut actuel de la réservation</label>
+                        <select id="commande-statut" class="form-control" required>
+                            <option value="Réservé">Réservé (Acompte versé)</option>
+                            <option value="Sorti">Sorti (Matériel récupéré)</option>
+                            <option value="Retourné">Retourné (Matériel restitué)</option>
+                            <option value="Retard">Retard (Restitution en retard)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section Notes et Photo facultative -->
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-comment-medical"></i> Notes & Illustration de la mariée
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label" for="commande-remarques">Remarques ou demandes spécifiques</label>
+                        <textarea id="commande-remarques" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Pièce jointe (Photo de la location)</label>
+                        <div class="image-upload-wrapper" id="upload-box">
+                            <div class="upload-icon">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <div class="upload-text">
+                                <h5>Mettre à jour l'illustration ou la photo</h5>
+                                <p>Cliquez ici pour téléverser une nouvelle image</p>
+                            </div>
+                            <input type="file" id="file-input" class="hidden-file-input" accept="image/*">
+                        </div>
+                        <div class="image-preview-area" id="preview-box">
+                            <button type="button" class="remove-preview-btn" id="btn-remove-preview">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                            <img src="" id="preview-img" alt="Illustration de location">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions de formulaire -->
+                <div class="form-actions">
+                    <a href="/commandes.html" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-check"></i> Enregistrer les modifications</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script d'édition et de sauvegarde de commande -->
+    <script type="module">
+        import { db } from '/js/database.js';
+        import { initUILayout } from '/js/ui.js';
+
+        let targetCommandeId = null;
+        let base64Photo = '';
+        let originalCommandeObj = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialiser le layout standard
+            await initUILayout();
+
+            // Extraire l'ID de la commande à éditer depuis les query params de l'URL
+            const params = new URLSearchParams(window.location.search);
+            targetCommandeId = Number(params.get('id'));
+
+            if (!targetCommandeId) {
+                alert("Erreur de routage : ID de commande manquant.");
+                window.location.href = '/commandes.html';
+                return;
+            }
+
+            // Récupérer les détails de la commande dans IndexedDB
+            originalCommandeObj = await db.getCommande(targetCommandeId);
+
+            if (!originalCommandeObj) {
+                alert("Commande introuvable dans la base de données.");
+                window.location.href = '/commandes.html';
+                return;
+            }
+
+            // Pré-remplir le formulaire avec les valeurs actuelles
+            populateForm(originalCommandeObj);
+
+            // Calcul réactif du reste à payer
+            const inputPrix = document.getElementById('produit-prix');
+            const inputPaye = document.getElementById('montant-paye');
+
+            inputPrix.addEventListener('input', updateResteAPayer);
+            inputPaye.addEventListener('input', updateResteAPayer);
+
+            // Activer la gestion de photo
+            setupPhotoUpload(originalCommandeObj.photo);
+
+            // Gérer la soumission du formulaire de modification
+            const form = document.getElementById('edit-commande-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const updatedCommande = {
+                    ...originalCommandeObj,
+                    clientNom: document.getElementById('client-nom').value.trim(),
+                    clientTel: document.getElementById('client-tel').value.trim(),
+                    clientAdresse: document.getElementById('client-adresse').value.trim(),
+                    dateSortie: document.getElementById('date-sortie').value,
+                    dateRetour: document.getElementById('date-retour').value,
+                    prix: Number(document.getElementById('produit-prix').value),
+                    montantPaye: Number(document.getElementById('montant-paye').value),
+                    reste: Number(document.getElementById('reste-payer').value),
+                    caution: Number(document.getElementById('produit-caution').value),
+                    modePaiement: document.getElementById('mode-paiement').value,
+                    statut: document.getElementById('commande-statut').value,
+                    remarques: document.getElementById('commande-remarques').value.trim(),
+                    photo: base64Photo || null
+                };
+
+                // Sauvegarder dans la base
+                await db.updateCommande(updatedCommande);
+
+                // Mettre à jour l'inventaire : Si retourné, le produit est à nouveau disponible
+                const prodObj = await db.getProduit(originalCommandeObj.produitId);
+                if (prodObj) {
+                    if (updatedCommande.statut === 'Retourné') {
+                        prodObj.disponibilite = 'Disponible';
+                    } else if (updatedCommande.statut === 'Sorti' || updatedCommande.statut === 'Retard') {
+                        prodObj.disponibilite = 'Loué';
+                    } else {
+                        prodObj.disponibilite = 'Disponible'; // Par défaut
+                    }
+                    await db.updateProduit(prodObj);
+                }
+
+                alert(`Félicitations Nadjla ! Les détails de la commande #${targetCommandeId} ont été mis à jour avec succès. 🌸`);
+                window.location.href = '/commandes.html';
+            });
+        });
+
+        // Pré-remplissage complet des contrôles
+        function populateForm(cmd) {
+            document.getElementById('client-nom').value = cmd.clientNom;
+            document.getElementById('client-tel').value = cmd.clientTel;
+            document.getElementById('client-adresse').value = cmd.clientAdresse || '';
+            document.getElementById('produit-nom').value = cmd.produitNom;
+            document.getElementById('produit-categorie').value = cmd.categorie;
+            document.getElementById('date-sortie').value = cmd.dateSortie;
+            document.getElementById('date-retour').value = cmd.dateRetour;
+            document.getElementById('produit-prix').value = cmd.prix;
+            document.getElementById('produit-caution').value = cmd.caution;
+            document.getElementById('montant-paye').value = cmd.montantPaye;
+            document.getElementById('reste-payer').value = cmd.reste;
+            document.getElementById('mode-paiement').value = cmd.modePaiement;
+            document.getElementById('commande-statut').value = cmd.statut;
+            document.getElementById('commande-remarques').value = cmd.remarques || '';
+        }
+
+        function updateResteAPayer() {
+            const prix = Number(document.getElementById('produit-prix').value) || 0;
+            const paye = Number(document.getElementById('montant-paye').value) || 0;
+            const resteInput = document.getElementById('reste-payer');
+            resteInput.value = Math.max(0, prix - paye);
+        }
+
+        // Logic d'import/export de photo
+        function setupPhotoUpload(existingPhoto) {
+            const box = document.getElementById('upload-box');
+            const fileInput = document.getElementById('file-input');
+            const previewBox = document.getElementById('preview-box');
+            const previewImg = document.getElementById('preview-img');
+            const removeBtn = document.getElementById('btn-remove-preview');
+
+            if (existingPhoto) {
+                base64Photo = existingPhoto;
+                previewImg.src = existingPhoto;
+                box.style.display = 'none';
+                previewBox.style.display = 'block';
+            }
+
+            box.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) handleImageFile(file);
+            });
+
+            removeBtn.addEventListener('click', () => {
+                base64Photo = '';
+                previewBox.style.display = 'none';
+                box.style.display = 'flex';
+                fileInput.value = '';
+            });
+
+            function handleImageFile(file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    base64Photo = event.target.result;
+                    previewImg.src = base64Photo;
+                    box.style.display = 'none';
+                    previewBox.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>

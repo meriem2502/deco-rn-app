@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichier des Clientes - DECO RN ADMIN</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/table.css">
+    <link rel="stylesheet" href="/css/forms.css">
+    <style>
+        /* Modale d'ajout/modification de cliente */
+        .client-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+            z-index: 150;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .client-modal-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 600px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border: 1px solid var(--primary-rose);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Panel de contrôle supérieure -->
+        <div class="control-panel">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="clientes-search-input" placeholder="Rechercher par nom de cliente ou numéro de téléphone...">
+            </div>
+
+            <div class="filter-group">
+                <select class="filter-select" id="sort-clientes-select">
+                    <option value="name-asc">Nom (A-Z)</option>
+                    <option value="name-desc">Nom (Z-A)</option>
+                    <option value="locations-desc">Nombre de locations (VIP d'abord)</option>
+                    <option value="revenue-desc">Total payé (DA décroissant)</option>
+                </select>
+
+                <button class="btn btn-primary" id="btn-add-client-trigger" style="border-radius: var(--radius-md); font-size: 0.85rem; padding: 10px 20px;">
+                    <i class="fa-solid fa-user-plus"></i> Enregistrer une Cliente
+                </button>
+            </div>
+        </div>
+
+        <!-- Tableau des Clientes -->
+        <div class="table-wrapper">
+            <div class="table-responsive">
+                <table class="custom-table" id="clientes-table">
+                    <thead>
+                        <tr>
+                            <th>Identité Cliente</th>
+                            <th>Coordonnées</th>
+                            <th>Réseaux Sociaux</th>
+                            <th style="text-align: center;">Locations</th>
+                            <th>Total loué</th>
+                            <th>Remarques de suivi</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientes-tbody">
+                        <!-- Rempli dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MODALE CLIENTE (AJOUT / MODIFICATION) -->
+        <div class="client-modal" id="client-modal">
+            <div class="client-modal-card animate-fade-in">
+                <div class="event-modal-header">
+                    <h4 id="client-modal-title">Créer une fiche cliente</h4>
+                    <button class="close-modal-btn" id="btn-close-client-modal"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <form id="client-form">
+                    <input type="hidden" id="edit-client-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="client-nom">Nom complet *</label>
+                            <input type="text" id="client-nom" class="form-control" placeholder="Ex: Rayane Bouchenaki" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="client-telephone">Téléphone de contact *</label>
+                            <input type="tel" id="client-telephone" class="form-control" placeholder="Ex: 0550 11 22 33" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="client-facebook">Lien ou nom Facebook</label>
+                            <div class="input-addon-wrapper">
+                                <span class="input-addon" style="background: rgba(24, 119, 242, 0.08); color: #1877F2;"><i class="fa-brands fa-facebook"></i></span>
+                                <input type="text" id="client-facebook" class="form-control" placeholder="Ex: Rayane.Bch">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="client-instagram">Compte Instagram (@)</label>
+                            <div class="input-addon-wrapper">
+                                <span class="input-addon" style="background: rgba(225, 48, 108, 0.08); color: #E1306C;"><i class="fa-brands fa-instagram"></i></span>
+                                <input type="text" id="client-instagram" class="form-control" placeholder="Ex: rayane_bch">
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label" for="client-adresse">Adresse résidentielle</label>
+                            <input type="text" id="client-adresse" class="form-control" placeholder="Ex: Hydra, Alger">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label" for="client-remarques">Remarques ou observations importantes</label>
+                            <textarea id="client-remarques" class="form-control" rows="3" placeholder="Ex: Cliente fidèle, prend grand soin du matériel, négocie souvent les cautions."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 25px;">
+                        <button type="button" class="btn btn-secondary" id="btn-cancel-client">Annuler</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Enregistrer la fiche</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/clientes.js"></script>
+</body>
+</html>

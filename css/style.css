@@ -1,0 +1,545 @@
+/* css/style.css - Styles globaux de l'application DECO RN ADMIN (Thème Frosted Glass) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Nuancier Premium Frosted Glass */
+    --primary-rose: #FFD2D7;       /* Rose pastel doux */
+    --primary-rose-light: #FFF5F7; /* Fond ultra clair rosé */
+    --primary-rose-dark: #AD1457;  /* Magenta royal (Apple-like contrast) */
+    --primary-rose-hover: #880E4F; /* Hover plus sombre */
+    --primary-gold: #D4AF37;       /* Doré étincelant */
+    --primary-gold-light: #F9E7B9; /* Doré pastel pour tags */
+    --text-color: #2D3748;         /* Gris foncé ardoise */
+    --text-muted: #718096;         /* Gris intermédiaire */
+    --border-color: rgba(255, 255, 255, 0.5);
+    --font-family: 'Poppins', sans-serif;
+    
+    /* Effets de Verre (Glassmorphism) */
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    --glass-bg-hover: rgba(255, 255, 255, 0.6);
+    --glass-bg-active: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-shadow: 0 12px 40px 0 rgba(173, 20, 87, 0.06);
+    --glass-blur: 20px;
+    
+    /* Statuts de commandes */
+    --color-success: #2E7D32;       /* Vert disponible/payé */
+    --color-success-bg: rgba(200, 230, 201, 0.5);
+    --color-warning: #EF6C00;       /* Orange retour aujourd'hui */
+    --color-warning-bg: rgba(255, 224, 178, 0.5);
+    --color-danger: #C2185B;        /* Rouge réservé/retard */
+    --color-danger-bg: rgba(248, 187, 208, 0.5);
+    
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 32px;
+    --radius-xl: 40px;
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: #FFF5F7;
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* Background décoratif ambient (Glassmorphic) */
+body::before {
+    content: '';
+    position: fixed;
+    top: -150px;
+    left: -150px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(252,228,236,0.8) 0%, rgba(252,228,236,0) 70%);
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -150px;
+    right: -150px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(248,187,208,0.5) 0%, rgba(248,187,208,0) 70%);
+    filter: blur(120px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Troisième cercle décoratif */
+.ambient-glow {
+    position: fixed;
+    top: 50%;
+    left: 30%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0) 70%);
+    filter: blur(90px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Layout structural de l'application */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Sidebar stylisée (Frosted Glass) */
+.sidebar {
+    width: 280px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    z-index: 100;
+    transition: var(--transition-smooth);
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    background: var(--primary-rose-dark);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.3rem;
+    box-shadow: 0 8px 20px rgba(173, 20, 87, 0.2);
+}
+
+.logo-text {
+    color: var(--primary-rose-dark);
+    font-weight: 800;
+    font-size: 1.15rem;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.logo-text span {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+}
+
+/* Navigation de la sidebar */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: var(--radius-md);
+    transition: var(--transition-smooth);
+}
+
+.nav-item i {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
+    color: var(--text-muted);
+    transition: var(--transition-smooth);
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--primary-rose-dark);
+}
+
+.nav-item:hover i {
+    color: var(--primary-rose-dark);
+    transform: translateX(2px);
+}
+
+.nav-item.active {
+    background: var(--primary-rose-dark);
+    color: white;
+    box-shadow: 0 8px 20px rgba(173, 20, 87, 0.15);
+}
+
+.nav-item.active i {
+    color: white;
+}
+
+/* Pied de la sidebar */
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.stock-indicator {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    text-align: center;
+    box-shadow: var(--glass-shadow);
+}
+
+.stock-indicator p {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary-rose-dark);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.stock-indicator .percentage {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.progress-bar-container {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    height: 6px;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--primary-rose-dark), var(--primary-gold));
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+}
+
+/* Contenu Principal */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+/* En-tête supérieur */
+.top-header {
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+.header-welcome h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.header-welcome p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.notification-bell {
+    position: relative;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.6);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition-smooth);
+}
+
+.notification-bell:hover {
+    background: var(--primary-rose);
+    transform: scale(1.05);
+}
+
+.notification-bell i {
+    color: var(--text-color);
+    font-size: 1.15rem;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: var(--primary-rose-dark);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 2px solid #FFF5F7;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.profile-details {
+    text-align: right;
+}
+
+.profile-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.profile-role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.profile-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-gold);
+    padding: 2px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--primary-rose-dark);
+    font-size: 1.1rem;
+    transition: var(--transition-smooth);
+}
+
+.profile-avatar:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+/* Boutons haut de gamme */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition-smooth);
+    text-decoration: none;
+    outline: none;
+}
+
+.btn-primary {
+    background: var(--primary-rose-dark);
+    color: white;
+    box-shadow: 0 6px 15px rgba(173, 20, 87, 0.15);
+}
+
+.btn-primary:hover {
+    background: var(--primary-rose-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(173, 20, 87, 0.25);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--primary-rose-dark);
+    border: 1px solid rgba(173, 20, 87, 0.2);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-rose);
+    color: var(--primary-rose-dark);
+    transform: translateY(-2px);
+}
+
+.btn-gold {
+    background: var(--primary-gold);
+    color: white;
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.15);
+}
+
+.btn-gold:hover {
+    background: #bfa02c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25);
+}
+
+/* Glass Cards réutilisables */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 25px;
+    box-shadow: var(--glass-shadow);
+    transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+    background: var(--glass-bg-hover);
+    box-shadow: 0 16px 45px 0 rgba(173, 20, 87, 0.09);
+    transform: translateY(-2px);
+}
+
+/* Écran d'authentification spécifique */
+.auth-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.auth-wrapper {
+    width: 100%;
+    max-width: 440px;
+    margin: 20px;
+}
+
+/* Badges de statut */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+}
+
+.badge-warning {
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+.badge-danger {
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger);
+}
+
+/* Animations globales */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Menu Burger Mobile */
+.mobile-header {
+    display: none;
+    height: 65px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 110;
+}
+
+.burger-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        box-shadow: 0 0 40px rgba(0,0,0,0.15);
+    }
+    .sidebar.open {
+        left: 0;
+    }
+    .mobile-header {
+        display: flex;
+    }
+    .top-header {
+        display: none;
+    }
+}

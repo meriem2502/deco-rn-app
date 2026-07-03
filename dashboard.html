@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - DECO RN ADMIN</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/table.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Bento grid injectée par js/dashboard.js -->
+        <div class="dashboard-grid">
+            <!-- Row 1: Stat Cards -->
+            <div class="stats-row" id="stats-cards-row">
+                <!-- Hydraté dynamiquement -->
+            </div>
+
+            <!-- Row 2: Bento Columns -->
+            <div class="bento-container">
+                <!-- Bento Left (Main) -->
+                <div class="bento-main">
+                    <!-- Recent Orders Glass Card -->
+                    <div class="glass-card flex-col">
+                        <div class="section-header">
+                            <h3>Commandes Récentes</h3>
+                            <a href="/commandes.html" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 50px;">Voir tout</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Produit</th>
+                                        <th>Date Retour</th>
+                                        <th>Statut</th>
+                                        <th style="text-align: right;">Reste</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-orders-tbody">
+                                    <!-- Hydraté dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Mini chart/stats preview -->
+                    <div class="glass-card" style="padding: 25px;">
+                        <div class="section-header">
+                            <h3>Aperçu des Revenus Mensuels</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenue-mini-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bento Right (Sidebar Actions & Reminders) -->
+                <div class="bento-sidebar">
+                    <!-- CTA Create Order Banner -->
+                    <div class="cta-banner">
+                        <div class="cta-content">
+                            <h4>Nouvelle Commande</h4>
+                            <p>Enregistrez une nouvelle réservation de location en quelques clics.</p>
+                            <a href="/nouvelle.html" class="btn btn-cta">
+                                <i class="fa-solid fa-plus"></i> Ajouter maintenant
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Today's Agenda (Retour/Sortie aujourd'hui) -->
+                    <div class="glass-card">
+                        <div class="section-header">
+                            <h3>Planning d'Aujourd'hui</h3>
+                            <p class="legend-color-tag" id="today-date-lbl" style="font-size: 0.75rem; font-weight: 700; color: var(--primary-gold);"></p>
+                        </div>
+                        <div class="agenda-list" id="today-agenda-list">
+                            <!-- Hydraté dynamiquement -->
+                        </div>
+                    </div>
+
+                    <!-- System Notifications -->
+                    <div class="glass-card" style="max-height: 300px; overflow-y: auto;">
+                        <div class="section-header">
+                            <h3>Alertes & Retards</h3>
+                        </div>
+                        <div id="alerts-container">
+                            <!-- Hydraté dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script principal de l'application -->
+    <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>

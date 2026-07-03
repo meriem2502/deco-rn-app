@@ -1,0 +1,6 @@
+{
+  "name": "DECO RN ADMIN",
+  "description": "Progressive Web App (PWA) de gestion de location de box de fiançailles, mariage, valises et accessoires pour l'administratrice Nadjla.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

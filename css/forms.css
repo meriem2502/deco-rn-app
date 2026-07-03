@@ -1,0 +1,265 @@
+/* css/forms.css - Styles spécifiques aux formulaires (Ajout / Modification / Paramètres) */
+
+.form-container {
+    padding: 30px;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.glass-form {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .glass-form {
+        padding: 25px;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+}
+
+.form-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-label i {
+    color: var(--primary-rose-dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 13px 18px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.5);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    color: var(--text-color);
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--primary-rose-dark);
+    box-shadow: 0 0 15px rgba(173, 20, 87, 0.1);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* Saisie de prix avec indicateur d'unité */
+.input-addon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-addon-wrapper .form-control {
+    padding-right: 50px;
+}
+
+.input-addon {
+    position: absolute;
+    right: 18px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+/* Zone d'importation d'image de luxe */
+.image-upload-wrapper {
+    border: 2px dashed rgba(173, 20, 87, 0.2);
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.image-upload-wrapper:hover {
+    border-color: var(--primary-rose-dark);
+    background: rgba(255, 255, 255, 0.55);
+    transform: scale(1.01);
+}
+
+.upload-icon {
+    font-size: 2.2rem;
+    color: var(--primary-rose-dark);
+    background: rgba(255, 210, 215, 0.5);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    box-shadow: 0 5px 15px rgba(173, 20, 87, 0.1);
+}
+
+.upload-text h5 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.upload-text p {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.image-preview-area {
+    width: 100%;
+    max-width: 200px;
+    height: 120px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--glass-border);
+    margin-top: 10px;
+    display: none;
+}
+
+.image-preview-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-preview-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(194, 24, 91, 0.85);
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: var(--transition-smooth);
+}
+
+.remove-preview-btn:hover {
+    background: var(--color-danger);
+    transform: scale(1.1);
+}
+
+/* Boutons d'action de formulaire */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Design spécifique de la page de paramètres */
+.settings-section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-rose-dark);
+    border-bottom: 2px solid var(--primary-rose);
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.db-action-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.db-action-card {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    transition: var(--transition-smooth);
+}
+
+.db-action-card:hover {
+    background: rgba(255, 255, 255, 0.65);
+    transform: translateY(-2px);
+}
+
+.db-action-card i {
+    font-size: 1.8rem;
+    color: var(--primary-rose-dark);
+}
+
+.db-action-card h5 {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.db-action-card p {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}

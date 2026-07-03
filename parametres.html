@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - DECO RN ADMIN</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forms.css">
+</head>
+<body>
+    <div id="app">
+        <div class="form-container">
+            <!-- Formulaire des paramètres de l'entreprise -->
+            <form id="settings-form" class="glass-form" style="margin-bottom: 30px;">
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-store"></i> Configuration de la Boutique
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="setting-enterprise-name">Nom de l'entreprise administrative</label>
+                        <input type="text" id="setting-enterprise-name" class="form-control" required placeholder="Ex: DECO RN ADMIN">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="setting-phone">Numéro de téléphone de contact</label>
+                        <input type="tel" id="setting-phone" class="form-control" required placeholder="Ex: 0550 12 34 56">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="setting-default-caution">Caution par défaut (DA)</label>
+                        <input type="number" id="setting-default-caution" class="form-control" required placeholder="5000">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="setting-admin-password">Mot de passe de sécurité (Accès admin)</label>
+                        <div style="position: relative; display: flex; align-items: center;">
+                            <input type="password" id="setting-admin-password" class="form-control" required style="padding-right: 45px;">
+                            <i class="fa-solid fa-eye" id="btn-toggle-settings-pwd" style="position: absolute; right: 15px; cursor: pointer; color: var(--text-muted);"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions" style="margin-top: 15px;">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les préférences</button>
+                </div>
+            </form>
+
+            <!-- Section de Sauvegardes & Restauration (Sécurité d'activité locale) -->
+            <div class="glass-form" style="padding: 30px;">
+                <div class="settings-section-title" style="color: var(--primary-gold);">
+                    <i class="fa-solid fa-shield-halved"></i> Sauvegarde & Restauration des Données locales
+                </div>
+                <p style="font-size: 0.8rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 25px;">
+                    Nadjla, étant donné que toutes vos données sont stockées de façon sécurisée en local dans votre navigateur (IndexedDB), nous vous recommandons fortement d'effectuer des sauvegardes régulières pour éviter toute perte en cas de réinitialisation de votre appareil.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex-wrap: wrap;">
+                    <!-- Backup download card -->
+                    <div style="background: rgba(255,255,255,0.15); border: 1px dashed var(--primary-rose); border-radius: var(--radius-md); padding: 20px; text-align: center;">
+                        <i class="fa-solid fa-cloud-arrow-down" style="font-size: 2.2rem; color: var(--primary-rose-dark); margin-bottom: 12px; display: block;"></i>
+                        <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Télécharger une Sauvegarde</h4>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 15px; min-height: 35px;">Génère un fichier de sécurité contenant toutes les clientes, produits et contrats de location actuels.</p>
+                        <button id="btn-export-backup" class="btn btn-primary" style="padding: 10px 18px; font-size: 0.8rem;"><i class="fa-solid fa-download"></i> Sauvegarder (JSON)</button>
+                    </div>
+
+                    <!-- Restore upload card -->
+                    <div style="background: rgba(255,255,255,0.15); border: 1px dashed var(--primary-gold); border-radius: var(--radius-md); padding: 20px; text-align: center;">
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.2rem; color: var(--primary-gold); margin-bottom: 12px; display: block;"></i>
+                        <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Restaurer une Sauvegarde</h4>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 15px; min-height: 35px;">Sélectionnez un fichier de sauvegarde précédemment exporté pour écraser et réinstaller vos données.</p>
+                        
+                        <input type="file" id="backup-file-input" accept=".json" class="hidden-file-input" style="display: none;">
+                        <button id="btn-import-backup-trigger" class="btn btn-gold" style="padding: 10px 18px; font-size: 0.8rem;"><i class="fa-solid fa-upload"></i> Restaurer (Importer)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de gestion intelligente des paramètres et des backups -->
+    <script type="module">
+        import { db } from '/js/database.js';
+        import { initUILayout } from '/js/ui.js';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialiser le layout standard
+            await initUILayout();
+
+            // Pré-charger les configurations de la base
+            const enterpriseName = await db.getSetting('enterprise_name') || 'DECO RN';
+            const phone = await db.getSetting('phone') || '0550 12 34 56';
+            const defaultCaution = await db.getSetting('default_caution') || 5000;
+            const adminPassword = await db.getSetting('admin_password') || 'Nadjla2026';
+
+            document.getElementById('setting-enterprise-name').value = enterpriseName;
+            document.getElementById('setting-phone').value = phone;
+            document.getElementById('setting-default-caution').value = defaultCaution;
+            document.getElementById('setting-admin-password').value = adminPassword;
+
+            // Toggling de visibilité du mot de passe admin
+            const pwdInput = document.getElementById('setting-admin-password');
+            const pwdToggle = document.getElementById('btn-toggle-settings-pwd');
+            if (pwdToggle && pwdInput) {
+                pwdToggle.addEventListener('click', () => {
+                    if (pwdInput.type === 'password') {
+                        pwdInput.type = 'text';
+                        pwdToggle.classList.remove('fa-eye');
+                        pwdToggle.classList.add('fa-eye-slash');
+                    } else {
+                        pwdInput.type = 'password';
+                        pwdToggle.classList.remove('fa-eye-slash');
+                        pwdToggle.classList.add('fa-eye');
+                    }
+                });
+            }
+
+            // Gérer l'enregistrement du formulaire de paramètres
+            const form = document.getElementById('settings-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const newName = document.getElementById('setting-enterprise-name').value.trim();
+                const newPhone = document.getElementById('setting-phone').value.trim();
+                const newCaution = Number(document.getElementById('setting-default-caution').value);
+                const newPwd = document.getElementById('setting-admin-password').value.trim();
+
+                await db.setSetting('enterprise_name', newName);
+                await db.setSetting('phone', newPhone);
+                await db.setSetting('default_caution', newCaution);
+                await db.setSetting('admin_password', newPwd);
+
+                alert("Vos préférences de boutique ont été enregistrées avec succès ! Elles seront appliquées immédiatement. 🌸");
+                // Rafraîchir pour appliquer la nouvelle sidebar
+                window.location.reload();
+            });
+
+            // Gérer l'exportation de sauvegarde (Backup)
+            const exportBtn = document.getElementById('btn-export-backup');
+            exportBtn.addEventListener('click', async () => {
+                try {
+                    const dataJson = await db.exportBackup();
+                    
+                    // Créer un blob téléchargeable
+                    const blob = new Blob([dataJson], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `backup_decorn_admin_${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    alert("Votre fichier de sauvegarde de sécurité a été généré et téléchargé avec succès ! Gardez-le en lieu sûr. 🔒");
+                } catch (err) {
+                    alert("Erreur lors de l'exportation : " + err.message);
+                }
+            });
+
+            // Gérer l'importation de sauvegarde (Restore)
+            const importTrigger = document.getElementById('btn-import-backup-trigger');
+            const fileInput = document.getElementById('backup-file-input');
+
+            importTrigger.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = async (event) => {
+                    const content = event.target.result;
+                    
+                    const confirmAction = confirm("ATTENTION : Cette opération va écraser TOUTES vos données actuelles (clientes, produits, locations) par celles contenues dans la sauvegarde. Êtes-vous sûre de vouloir continuer ?");
+                    if (!confirmAction) return;
+
+                    try {
+                        const success = await db.importBackup(content);
+                        if (success) {
+                            alert("Restauration complète effectuée avec succès ! L'application va redémarrer. ✨");
+                            window.location.href = '/dashboard.html';
+                        } else {
+                            alert("Format de fichier de sauvegarde invalide ou corrompu.");
+                        }
+                    } catch (err) {
+                        alert("Échec de l'importation : " + err.message);
+                    }
+                };
+                reader.readAsText(file);
+            });
+        });
+    </script>
+</body>
+</html>

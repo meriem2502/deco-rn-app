@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier - DECO RN ADMIN</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/calendar.css">
+</head>
+<body>
+    <div id="app">
+        <div class="calendar-layout">
+            <!-- Left Side: Interactive monthly calendar grid -->
+            <div class="glass-card calendar-card">
+                <div class="calendar-header">
+                    <button class="calendar-nav-btn" id="btn-prev-month"><i class="fa-solid fa-chevron-left"></i></button>
+                    <h3 id="current-month-year-label">Juillet 2026</h3>
+                    <button class="calendar-nav-btn" id="btn-next-month"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+
+                <div class="weekdays-grid">
+                    <div>Lun</div>
+                    <div>Mar</div>
+                    <div>Mer</div>
+                    <div>Jeu</div>
+                    <div>Ven</div>
+                    <div>Sam</div>
+                    <div>Dim</div>
+                </div>
+
+                <div class="days-grid" id="calendar-days-grid">
+                    <!-- Rempli dynamiquement de cellules de dates -->
+                </div>
+            </div>
+
+            <!-- Right Side: Selected day's schedule list -->
+            <div class="glass-card schedule-sidebar">
+                <div class="schedule-header">
+                    <h4>Planning du Jour</h4>
+                    <p id="selected-date-title">Sélectionnez un jour</p>
+                </div>
+
+                <div class="schedule-events-list" id="selected-day-events-list">
+                    <!-- Rempli dynamiquement de locations de la journée sélectionnée -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/calendar.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "short_name": "DecoRnAdmin",
+  "name": "DECO RN ADMIN",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=192&h=192&fit=crop",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=512&h=512&fit=crop",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#F8F9FA",
+  "theme_color": "#FFD2D7",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques - DECO RN ADMIN</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/table.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Row 1: Recap stats -->
+        <div class="stats-row" style="margin-bottom: 30px;">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Chiffre d'Affaires Cumulé</span>
+                    <div class="stat-icon" style="color: var(--color-success);"><i class="fa-solid fa-money-bill-wave"></i></div>
+                </div>
+                <div>
+                    <p class="stat-value" id="stats-total-ca" style="color: var(--color-success);">0 DA</p>
+                    <p class="stat-meta positive">Total encaissé historiquement</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Reste à Recouvrer</span>
+                    <div class="stat-icon" style="color: var(--primary-rose-dark);"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                </div>
+                <div>
+                    <p class="stat-value" id="stats-total-reste" style="color: var(--primary-rose-dark);">0 DA</p>
+                    <p class="stat-meta neutral">Total restant chez les clientes</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Volume d'Activité</span>
+                    <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                </div>
+                <div>
+                    <p class="stat-value" id="stats-total-orders">0</p>
+                    <p class="stat-meta positive">Nombre de réservations</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Charts -->
+        <div class="bento-container" style="margin-bottom: 30px;">
+            <div class="glass-card" style="flex: 1.5; padding: 25px;">
+                <div class="section-header">
+                    <h3>Revenus de l'Année (Mensuels)</h3>
+                </div>
+                <div style="position: relative; height: 320px; width: 100%;">
+                    <canvas id="revenue-detailed-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-card" style="flex: 1; padding: 25px;">
+                <div class="section-header">
+                    <h3>Popularité des Catégories</h3>
+                </div>
+                <div style="position: relative; height: 320px; width: 100%;">
+                    <canvas id="category-popularity-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: High performers tables -->
+        <div class="bento-container">
+            <!-- Left: Top rented items -->
+            <div class="glass-card" style="flex: 1; padding: 25px;">
+                <div class="section-header">
+                    <h3><i class="fa-solid fa-crown" style="color: var(--primary-gold);"></i> Matériel le plus Loué</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table" style="box-shadow: none; border: none;">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Catégorie</th>
+                                <th style="text-align: center;">Locations</th>
+                                <th style="text-align: right;">Prix</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stats-items-tbody">
+                            <!-- Hydraté dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Right: Top customers -->
+            <div class="glass-card" style="flex: 1; padding: 25px;">
+                <div class="section-header">
+                    <h3><i class="fa-solid fa-gem" style="color: var(--primary-rose-dark);"></i> Clientes VIP d'Honneur</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table" style="box-shadow: none; border: none;">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Téléphone</th>
+                                <th style="text-align: center;">Locations</th>
+                                <th style="text-align: right;">Total loué</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stats-clients-tbody">
+                            <!-- Hydraté dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/stats.js"></script>
+</body>
+</html>

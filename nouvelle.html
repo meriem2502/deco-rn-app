@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle Commande - DECO RN ADMIN</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/forms.css">
+</head>
+<body>
+    <div id="app">
+        <div class="form-container">
+            <form id="add-commande-form" class="glass-form">
+                <!-- Section Cliente -->
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-user"></i> Informations de la Cliente
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="client-nom">Nom complet de la cliente *</label>
+                        <input type="text" id="client-nom" class="form-control" placeholder="Ex: Amira Bendis" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="client-tel">Téléphone mobile *</label>
+                        <input type="tel" id="client-tel" class="form-control" placeholder="Ex: 0555123456" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label" for="client-adresse">Adresse de livraison (Facultatif)</label>
+                        <input type="text" id="client-adresse" class="form-control" placeholder="Ex: Alger Centre, Rue Didouche Mourad">
+                    </div>
+                </div>
+
+                <!-- Section Produit & Dates -->
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-boxes-packing"></i> Sélection du Matériel & Dates
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="produit-select">Choisir un produit de l'inventaire *</label>
+                        <select id="produit-select" class="form-control" required>
+                            <option value="" disabled selected>-- Sélectionnez un article --</option>
+                            <!-- Chargé dynamiquement -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="produit-categorie">Catégorie (Auto)</label>
+                        <input type="text" id="produit-categorie" class="form-control" readonly placeholder="Sélect. produit d'abord">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="date-sortie">Date de Sortie (Retrait) *</label>
+                        <input type="date" id="date-sortie" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="date-retour">Date de Retour (Restitution) *</label>
+                        <input type="date" id="date-retour" class="form-control" required>
+                    </div>
+                </div>
+
+                <!-- Section Conditions Financières -->
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-sack-dollar"></i> Conditions Financières & Règlement
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="produit-prix">Prix de la location *</label>
+                        <div class="input-addon-wrapper">
+                            <input type="number" id="produit-prix" class="form-control" required placeholder="0">
+                            <span class="input-addon">DA</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="produit-caution">Caution déposée *</label>
+                        <div class="input-addon-wrapper">
+                            <input type="number" id="produit-caution" class="form-control" required placeholder="0">
+                            <span class="input-addon">DA</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="montant-paye">Montant payé aujourd'hui (Acompte) *</label>
+                        <div class="input-addon-wrapper">
+                            <input type="number" id="montant-paye" class="form-control" required value="0">
+                            <span class="input-addon">DA</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="reste-payer">Reste à payer (Auto)</label>
+                        <div class="input-addon-wrapper">
+                            <input type="number" id="reste-payer" class="form-control" readonly value="0" style="font-weight: 700; color: var(--primary-rose-dark);">
+                            <span class="input-addon">DA</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="mode-paiement">Mode de règlement *</label>
+                        <select id="mode-paiement" class="form-control" required>
+                            <option value="Espèces">Espèces</option>
+                            <option value="CCP">CCP (Virement)</option>
+                            <option value="BaridiMob">BaridiMob</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="commande-statut">Statut initial de la réservation</label>
+                        <select id="commande-statut" class="form-control" required>
+                            <option value="Réservé">Réservé (Acompte versé)</option>
+                            <option value="Sorti">Sorti (Matériel récupéré)</option>
+                            <option value="Retourné">Retourné (Matériel restitué)</option>
+                            <option value="Retard">Retard (Restitution en retard)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section Notes et Photo facultative -->
+                <div class="settings-section-title">
+                    <i class="fa-solid fa-comment-medical"></i> Remarques & Illustration de la mariée
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label" for="commande-remarques">Remarques ou demandes spécifiques</label>
+                        <textarea id="commande-remarques" class="form-control" rows="3" placeholder="Ex: Livraison demandée le matin. Prêter les cintres en plus."></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Pièce jointe (Photo facultative)</label>
+                        <div class="image-upload-wrapper" id="upload-box">
+                            <div class="upload-icon">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <div class="upload-text">
+                                <h5>Faites glisser ou cliquez pour importer une photo</h5>
+                                <p>Format PNG, JPG ou WEBP de préférence</p>
+                            </div>
+                            <input type="file" id="file-input" class="hidden-file-input" accept="image/*">
+                        </div>
+                        <div class="image-preview-area" id="preview-box">
+                            <button type="button" class="remove-preview-btn" id="btn-remove-preview">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                            <img src="" id="preview-img" alt="Illustration de location">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions de formulaire -->
+                <div class="form-actions">
+                    <a href="/commandes.html" class="btn btn-secondary">Annuler</a>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Enregistrer le contrat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script de traitement intelligent de la commande -->
+    <script type="module">
+        import { db } from '/js/database.js';
+        import { initUILayout } from '/js/ui.js';
+
+        let productsList = [];
+        let base64Photo = '';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialiser le layout standard
+            await initUILayout();
+
+            // Remplir le sélecteur d'articles
+            productsList = await db.getAllProduits();
+            const select = document.getElementById('produit-select');
+            
+            // Populer avec les produits disponibles de préférence
+            productsList.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.id;
+                opt.textContent = `${p.nom} (${p.categorie}) - ${p.prix.toLocaleString()} DA`;
+                select.appendChild(opt);
+            });
+
+            // Écouter le changement de produit pour pré-remplir les tarifs
+            select.addEventListener('change', (e) => {
+                const pId = Number(e.target.value);
+                const selectedProd = productsList.find(p => p.id === pId);
+                if (selectedProd) {
+                    document.getElementById('produit-categorie').value = selectedProd.categorie;
+                    document.getElementById('produit-prix').value = selectedProd.prix;
+                    document.getElementById('produit-caution').value = selectedProd.caution;
+                    updateResteAPayer();
+                }
+            });
+
+            // Calcul réactif du reste à payer
+            const inputPrix = document.getElementById('produit-prix');
+            const inputPaye = document.getElementById('montant-paye');
+
+            inputPrix.addEventListener('input', updateResteAPayer);
+            inputPaye.addEventListener('input', updateResteAPayer);
+
+            // Gérer le glisser-déposer de la photo facultative
+            setupPhotoUpload();
+
+            // Soumission finale du formulaire
+            const form = document.getElementById('add-commande-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const clientNom = document.getElementById('client-nom').value.trim();
+                const clientTel = document.getElementById('client-tel').value.trim();
+                const clientAdresse = document.getElementById('client-adresse').value.trim();
+
+                const selectEl = document.getElementById('produit-select');
+                const selectedProd = productsList.find(p => p.id === Number(selectEl.value));
+
+                if (!selectedProd) {
+                    alert("Veuillez sélectionner un produit valide.");
+                    return;
+                }
+
+                const dateReservation = new Date().toISOString().split('T')[0]; // Réservation aujourd'hui
+                const dateSortie = document.getElementById('date-sortie').value;
+                const dateRetour = document.getElementById('date-retour').value;
+
+                if (new Date(dateRetour) < new Date(dateSortie)) {
+                    alert("La date de retour ne peut pas être antérieure à la date de sortie !");
+                    return;
+                }
+
+                const prix = Number(document.getElementById('produit-prix').value);
+                const caution = Number(document.getElementById('produit-caution').value);
+                const montantPaye = Number(document.getElementById('montant-paye').value);
+                const reste = Number(document.getElementById('reste-payer').value);
+                const modePaiement = document.getElementById('mode-paiement').value;
+                const statut = document.getElementById('commande-statut').value;
+                const remarques = document.getElementById('commande-remarques').value.trim();
+
+                // Créer l'objet commande
+                const newCommande = {
+                    clientNom,
+                    clientTel,
+                    clientAdresse,
+                    produitId: selectedProd.id,
+                    produitNom: selectedProd.nom,
+                    categorie: selectedProd.categorie,
+                    dateReservation,
+                    dateSortie,
+                    dateRetour,
+                    prix,
+                    montantPaye,
+                    reste,
+                    caution,
+                    modePaiement,
+                    statut,
+                    remarques,
+                    photo: base64Photo || null
+                };
+
+                // Ajouter la commande
+                const newId = await db.addCommande(newCommande);
+
+                // Mettre à jour l'état de disponibilité du produit (marquer comme Loué s'il sort)
+                if (statut === 'Sorti') {
+                    selectedProd.disponibilite = 'Loué';
+                    selectedProd.locationsCount = (selectedProd.locationsCount || 0) + 1;
+                    await db.updateProduit(selectedProd);
+                }
+
+                // Ajouter/Mettre à jour la fiche cliente dans l'historique de Nadjla
+                const allClients = await db.getAllClientes();
+                const existingClient = allClients.find(c => c.telephone === clientTel);
+
+                if (existingClient) {
+                    existingClient.locationsCount = (existingClient.locationsCount || 0) + 1;
+                    existingClient.totalPaye = (existingClient.totalPaye || 0) + montantPaye;
+                    if (clientAdresse) existingClient.adresse = clientAdresse;
+                    await db.updateCliente(existingClient);
+                } else {
+                    const newClient = {
+                        nom: clientNom,
+                        telephone: clientTel,
+                        adresse: clientAdresse,
+                        facebook: '',
+                        instagram: '',
+                        locationsCount: 1,
+                        totalPaye: montantPaye,
+                        remarques: remarques ? `Notes première commande: ${remarques}` : ''
+                    };
+                    await db.addCliente(newClient);
+                }
+
+                alert(`Félicitations Nadjla ! La commande n° #${newId} a été enregistrée avec succès. 🌸`);
+                window.location.href = '/commandes.html';
+            });
+        });
+
+        function updateResteAPayer() {
+            const prix = Number(document.getElementById('produit-prix').value) || 0;
+            const paye = Number(document.getElementById('montant-paye').value) || 0;
+            const resteInput = document.getElementById('reste-payer');
+            resteInput.value = Math.max(0, prix - paye);
+        }
+
+        function setupPhotoUpload() {
+            const box = document.getElementById('upload-box');
+            const fileInput = document.getElementById('file-input');
+            const previewBox = document.getElementById('preview-box');
+            const previewImg = document.getElementById('preview-img');
+            const removeBtn = document.getElementById('btn-remove-preview');
+
+            box.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) handleImageFile(file);
+            });
+
+            // Drag over events
+            box.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                box.style.borderColor = 'var(--primary-rose-dark)';
+            });
+
+            box.addEventListener('dragleave', () => {
+                box.style.borderColor = 'rgba(173, 20, 87, 0.2)';
+            });
+
+            box.addEventListener('drop', (e) => {
+                e.preventDefault();
+                box.style.borderColor = 'rgba(173, 20, 87, 0.2)';
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) handleImageFile(file);
+            });
+
+            removeBtn.addEventListener('click', () => {
+                base64Photo = '';
+                previewBox.style.display = 'none';
+                box.style.display = 'flex';
+                fileInput.value = '';
+            });
+
+            function handleImageFile(file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    base64Photo = event.target.result;
+                    previewImg.src = base64Photo;
+                    box.style.display = 'none';
+                    previewBox.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>
